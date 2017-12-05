@@ -12,6 +12,7 @@ function Graph(v) {
     this.addEdge = addEdge;
     this.showGraph = showGraph;
     this.dfs = dfs;
+    this.bfs = bfs;
 }
 
 function dfs(v) {
@@ -21,8 +22,29 @@ function dfs(v) {
     }
     for (var i = 0; i < this.adj[v].length; i++) {
         var w = this.adj[v][i];
+        console.log(w);
         if (!this.marked[w]) {
             this.dfs(w);
+        }
+    }
+}
+
+function bfs(start) {
+    var queue = [];
+    this.marked[start] = true;
+    queue.push(start);
+    while (queue.length > 0) {
+        var verticies = queue.shift();
+        if(verticies !== undefined) {
+            console.log("Visited vertex: " + verticies);
+        }
+        for (var i = 0; i < this.adj[verticies].length; i++) {
+            var point = this.adj[verticies][i];
+            console.log(point);
+            if (!this.marked[point]) {
+                this.marked[point] = true;
+                queue.push(point);
+            }
         }
     }
 }
@@ -52,4 +74,4 @@ g.addEdge(0, 2);
 g.addEdge(1, 3);
 g.addEdge(2, 4);
 g.showGraph();
-g.dfs(0);
+g.bfs(0);
